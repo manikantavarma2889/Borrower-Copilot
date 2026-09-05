@@ -3,6 +3,10 @@
 ## Project Name
 Borrower Copilot — Lokta Build Challenge
 
+
+## 🎥 -Minute Demo
+
+[▶️ Watch the 1-minute Borrower Copilot Demo](https://github.com/user-attachments/assets/a294e6b6-b0d5-44cd-8fb4-30846c8acd07)
 ## Problem
 Indian borrowers often don't understand the difference between what a lender may sanction and what they can safely afford. This leads to over-borrowing, financial stress, and poor negotiation outcomes. Most borrowers accept the lender's maximum sanction as their target, which is financially dangerous.
 
