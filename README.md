@@ -102,7 +102,6 @@ borrower-copilot/
 ├── RULES.md
 ├── RUNTHROUGHS.md
 ├── WALKTHROUGH.md
-├── INTERVIEW_NOTES.md
 │
 ├── docs/
 │   ├── PLAN.md
