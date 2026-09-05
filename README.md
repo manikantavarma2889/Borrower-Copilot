@@ -6,7 +6,7 @@ Borrower Copilot — Lokta Build Challenge
 
 ## 1-Minute Demo
 
-🎥 [Watch the 1-minute Borrower Copilot demo](./src/Video%20Project%2013.mp4)
+🎥 [Watch the 1-minute Borrower Copilot demo](./src/Video Project 13.mp4)
 
 A quick walkthrough of the questionnaire, borrower analysis, O1–O4 results, and Negotiation Card.
 ## Problem
