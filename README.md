@@ -166,40 +166,69 @@ Build for production (static files, no backend required).
 
 ## How Rules Work
 
-All financial rules are centralized in `src/rules/`, exported via `src/rules/index.ts`. The configuration is in `src/rules/config.ts`.
+All financial rules are centralized in [`src/rules/`](src/rules/), keeping financial logic separate from the React UI.
 
-**Every rule is documented in RULES.md** using the format:
+The main configuration is in [`src/rules/config.ts`](src/rules/config.ts).
+
+**Every rule is documented in [`RULES.md`](RULES.md)** using the format:
 
 | What | Value | Why | Source |
+| ---- | ----- | --- | ------ |
 
-Assumptions that are "my judgement" are explicitly marked as such. "DO NOT falsely label your own thresholds as RBI rules."
+Assumptions that are **"my judgement"** are explicitly marked as such.
 
-**Important:** The UI never contains financial calculations. Example of BAD:
+> **Important:** Product assumptions and thresholds are not falsely presented as RBI rules.
 
-```tsx
-const emi = income * 0.4 - existingEmi;  // inside React component — BAD
-```
+### Financial Rule Modules
 
-Example of GOOD:
+| Module                                             | Purpose                                        |
+| -------------------------------------------------- | ---------------------------------------------- |
+| [`config.ts`](src/rules/config.ts)                 | Centralized thresholds, bands and assumptions  |
+| [`affordability.ts`](src/rules/affordability.ts)   | FOIR-based borrower-safe affordability         |
+| [`eligibility.ts`](src/rules/eligibility.ts)       | Lender-likely eligibility estimate             |
+| [`interestRate.ts`](src/rules/interestRate.ts)     | Fair interest-rate bands                       |
+| [`apr.ts`](src/rules/apr.ts)                       | Estimated all-in APR including processing fees |
+| [`emi.ts`](src/rules/emi.ts)                       | EMI and tenure calculations                    |
+| [`borrowDecision.ts`](src/rules/borrowDecision.ts) | Borrow / Don't Borrow / Borrow Less decision   |
+| [`productRouting.ts`](src/rules/productRouting.ts) | Product/route recommendations                  |
+| [`confidence.ts`](src/rules/confidence.ts)         | Confidence scoring and uncertainty handling    |
+| [`index.ts`](src/rules/index.ts)                   | Central exports for the rule modules           |
+
+### Separation of Concerns
+
+The UI does **not** contain financial calculations.
+
+**Bad:**
 
 ```ts
-const result = calculateAffordability(profile, rules);  // rules called from outside UI
+const emi = income * 0.4 - existingEmi;
+// Financial calculation inside a React component — BAD
 ```
 
-## Assumptions
+**Good:**
 
-Key configurable assumptions (all in `src/rules/config.ts`):
+```ts
+const result = calculateAffordability(profile, rules);
+// Financial logic stays inside src/rules/
+```
 
-- **FOIR_BASE:** 40% — Conservative baseline for personal loans
-- **FOIR_STABLE_SALARIED:** 45% — Slightly higher for stable salaried profiles
-- **FOIR_VARIABLE:** 35% — Stronger buffer for variable/informal income
-- **PROCESSING_FEE_PERCENT:** 2% — Typical Indian personal loan processing fee
-- **LTV_CONSERVATIVE:** 50% — Conservative loan-to-value for secured products
-- **INCOME_DROP_STRESS:** 20% — Standard stress test income drop
-- **CREDIT_SCORE_THRESHOLDS:** 750 (excellent), 700 (good), 600 (fair), 500 (poor)
-- **INCOME_TYPE_FACTORS:** 1.0 (salaried MNC) to 0.5 (informal)
+This makes the rules easier to test, audit, explain and change without modifying the UI.
 
-**None of these are claimed as RBI regulations.** They are product planning assumptions, conservative by design (goal: borrower protection, not maximizing loan amount).
+### Configurable Assumptions
+
+Key configurable assumptions are centralized in [`src/rules/config.ts`](src/rules/config.ts), including:
+
+* FOIR thresholds by income stability
+* Income-type eligibility factors
+* Credit-score assumptions and rate bands
+* Business-history factors
+* Processing-fee assumptions
+* Tenure options
+* Stress-test assumptions
+* Collateral/LTV assumptions
+
+To understand the reasoning behind each assumption, see [`RULES.md`](RULES.md).
+
 
 ## Limitations
 
