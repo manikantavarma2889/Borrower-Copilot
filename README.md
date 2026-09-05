@@ -97,35 +97,50 @@ Results (O1-O4) → Negotiation Card
 ## File Structure
 
 ```
-borrower-copilot/
-├── README.md
-├── RULES.md
-├── RUNTHROUGHS.md
-├── WALKTHROUGH.md
-│
+Borrower-Copilot/
 ├── docs/
 │   ├── PLAN.md
 │   └── QUESTION_DESIGN.md
 │
 ├── src/
-│   ├── App.tsx — main React component
-│   ├── types/ — TypeScript type definitions
-│   ├── rules/ — all financial rules (config + 8 modules)
-│   ├── components/ — UI components
-│   ├── pages/ — screen pages (landing, questionnaire, results, etc.)
-│   ├── data/ — questionnaire data
-│   ├── utils/ — helper functions
-│   ├── hooks/ — React hooks
-│   └── App.tsx
+│   ├── rules/
+│   │   ├── affordability.ts
+│   │   ├── apr.ts
+│   │   ├── borrowDecision.ts
+│   │   ├── confidence.ts
+│   │   ├── config.ts
+│   │   ├── eligibility.ts
+│   │   ├── emi.ts
+│   │   ├── index.ts
+│   │   ├── interestRate.ts
+│   │   └── productRouting.ts
+│   ├── types/
+│   │   └── index.ts
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
 │
 ├── tests/
-│   └── unit tests for financial rules
+│   ├── affordability.test.ts
+│   ├── apr.test.ts
+│   ├── borrowDecision.test.ts
+│   ├── confidence.test.ts
+│   ├── eligibility.test.ts
+│   ├── emi.test.ts
+│   ├── interestRate.test.ts
+│   └── productRouting.test.ts
 │
+├── .gitignore
+├── README.md
+├── RULES.md
+├── WALKTHROUGH.md
+├── index.html
+├── jest.config.cjs
 ├── package.json
-├── vite.config.ts
+├── package-lock.json
 ├── tailwind.config.ts
 ├── tsconfig.json
-└── ...
+└── vite.config.ts
 ```
 
 ## How to Run
@@ -135,7 +150,7 @@ npm install
 npm run dev
 ```
 
-This starts the Vite development server. The app loads locally in the browser at `http://localhost://5173` (or similar port).
+This starts the Vite development server. The app loads locally in the browser at `http://localhost:5173` (or similar port).
 
 ```
 npm test
